@@ -56,15 +56,12 @@ public class Day4 {
         do {
             winNumber = bingoNumbers[i];
             findNumber(winNumber);
-            removeWinners();
+            if (playerBoards.size() > 1) {
+                removeWinners();
+            }
             i++;
-        } while (playerBoards.size() != 1);
-        // the last board standing.
-        do {
-            winNumber = bingoNumbers[i];
-            findNumber(winNumber);
-            i++;
-        } while (!findWinnerLineOrColumn(playerBoards.get(0).getNumbers()));
+        } while (playerBoards.size() != 1
+                || !findWinnerLineOrColumn(playerBoards.get(0).getNumbers()));
         getResult(playerBoards.get(0));
     }
 
