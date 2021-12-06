@@ -28,6 +28,16 @@
             <artifactId>spring-core</artifactId>
             <version>5.3.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.javatuples</groupId>
+            <artifactId>javatuples</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
+        </dependency>
     </dependencies>
 
     <properties>
