@@ -48,7 +48,7 @@ public class Day6 {
                     map.compute(initial[i], (k, v) -> ++v);
                 }
             }
-        } catch (IOException ex) {
+        } catch (IOException | NumberFormatException ex) {
             logger.error(ex.getMessage(), ex);
         }
     }
