@@ -11,15 +11,13 @@ import java.io.InputStreamReader;
 import static java.lang.System.lineSeparator;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class Day1 {
+public class Day1PartTwo {
 
-    private static final Log logger = LogFactory.getLog(Day1.class);
+    private static final Log logger = LogFactory.getLog(Day1PartTwo.class);
 
     private static final String TEST_FILE_PATH = "y2025/day1/test.txt";
 
     private static final String PASSWORD_FILE_PATH = "y2025/day1/password.txt";
-
-    private static final String PASSWORD_PART_TWO_FILE_PATH = "y2025/day1/password_part_two.txt";
 
     private static final String RIGHT_PREFIX = "R";
 
@@ -34,58 +32,10 @@ public class Day1 {
     private static int dial = 50;
 
     static void main(String[] args) {
-        val classLoader = Day1.class.getClassLoader();
+        val classLoader = Day1PartTwo.class.getClassLoader();
         //processPasswordPartTwo(classLoader.getResourceAsStream(TEST_FILE_PATH));
-        //processPassword(classLoader.getResourceAsStream(PASSWORD_FILE_PATH));
-        processPasswordPartTwo(classLoader.getResourceAsStream(PASSWORD_PART_TWO_FILE_PATH));
+        processPasswordPartTwo(classLoader.getResourceAsStream(PASSWORD_FILE_PATH));
         logger.info("Password: %s".formatted(password));
-    }
-
-    private static void processPassword(final InputStream source) {
-        try (val br = new BufferedReader(new InputStreamReader(source))) {
-            String line;
-            while (isNotBlank(line = br.readLine())) {
-                if (line.startsWith(RIGHT_PREFIX)) {
-                    doRightRotation(line);
-                } else if (line.startsWith(LEFT_PREFIX)) {
-                    doLeftRotation(line);
-                }
-            }
-        } catch (final Exception ex) {
-            logger.error(ex.getMessage(), ex);
-        }
-    }
-
-    private static void doRightRotation(final String source) {
-        val step = parseInt(source);
-        val result = dial + step;
-        dial = result;
-        if (result == MAX_VALUE) {
-            password++;
-            dial = MIN_VALUE;
-        } else if (result > MAX_VALUE) {
-            dial = MIN_VALUE + result - MAX_VALUE;
-        }
-    }
-
-    private static void doLeftRotation(final String source) {
-        val step = parseInt(source);
-        val result = dial - step;
-        dial = result;
-        if (result == MIN_VALUE) {
-            password++;
-        } else if (result < MIN_VALUE) {
-            dial = MAX_VALUE + result;
-        }
-    }
-
-    private static Integer parseInt(final String source) {
-        val intPart = source.substring(1).trim();
-        if (intPart.length() > 2) {
-            return Integer.parseInt(intPart.substring(intPart.length() - 2));
-        }
-
-        return Integer.parseInt(intPart);
     }
 
     private static void processPasswordPartTwo(final InputStream source) {
@@ -142,6 +92,15 @@ public class Day1 {
             dial = result;
         }
         printLog(source, cross);
+    }
+
+    private static Integer parseInt(final String source) {
+        val intPart = source.substring(1).trim();
+        if (intPart.length() > 2) {
+            return Integer.parseInt(intPart.substring(intPart.length() - 2));
+        }
+
+        return Integer.parseInt(intPart);
     }
 
     private static Integer parseIntPartTwo(final String source) {

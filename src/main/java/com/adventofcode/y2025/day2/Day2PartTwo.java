@@ -12,9 +12,9 @@ import java.util.Arrays;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class Day2 {
+public class Day2PartTwo {
 
-    private static final Log logger = LogFactory.getLog(Day2.class);
+    private static final Log logger = LogFactory.getLog(Day2PartTwo.class);
 
     private static final String TEST_FILE_PATH = "y2025/day2/test.txt";
 
@@ -23,46 +23,10 @@ public class Day2 {
     private static long result = 0;
 
     static void main() {
-        val classLoader = Day2.class.getClassLoader();
-        //process(classLoader.getResourceAsStream(TEST_FILE_PATH));
-        //process(classLoader.getResourceAsStream(ID_LIST_FILE_PATH));
+        val classLoader = Day2PartTwo.class.getClassLoader();
         //processPartTwo(classLoader.getResourceAsStream(TEST_FILE_PATH));
         processPartTwo(classLoader.getResourceAsStream(ID_LIST_FILE_PATH));
         logger.info("Result: %s".formatted(result));
-    }
-
-    private static void process(final InputStream source) {
-        try (val br = new BufferedReader(new InputStreamReader(source))) {
-            String line;
-            while (isNotBlank(line = br.readLine())) {
-                Arrays.stream(line.split(",")).forEach(Day2::processString);
-            }
-        } catch (final Exception ex) {
-            logger.error(ex.getMessage(), ex);
-        }
-    }
-
-    private static void processString(final String source) {
-        val str = source.split("-");
-        if (isOddStringLength(str[0]) && isOddStringLength(str[1])) {
-            return;
-        }
-        val start = Long.parseLong(str[0]);
-        val end = Long.parseLong(str[1]);
-        for (var i = start; i <=end; i++) {
-            val iString = String.valueOf(i);
-            if (isOddStringLength(iString)) {
-                continue;
-            }
-            val halfLength = iString.length() / 2;
-            if (iString.substring(0, halfLength).equals(iString.substring(halfLength))) {
-                result += i;
-            }
-        }
-    }
-
-    private static boolean isOddStringLength(final String source) {
-        return isOdd(source.length(), 2);
     }
 
     private static boolean isOdd(final int source, final int divider) {
@@ -74,7 +38,7 @@ public class Day2 {
             String line;
             while (isNotBlank(line = br.readLine())) {
                 val timer = Stopwatch.createStarted();
-                Arrays.stream(line.split(",")).forEach(Day2::processStringPartTwo);
+                Arrays.stream(line.split(",")).forEach(Day2PartTwo::processStringPartTwo);
                 logger.info("Method took: " + timer.stop());
             }
         } catch (final Exception ex) {
@@ -88,16 +52,16 @@ public class Day2 {
         val end = Long.parseLong(str[1]);
         for (var i = start; i <=end; i++) {
             val iString = String.valueOf(i);
-            if (allCharactersSame(iString)) {
+            if (iString.length() == 1) {
+                continue;
+            }
+            if (iString.codePoints().distinct().count() == 1) {
                 System.out.println("Invalid ID with same digits: %s".formatted(iString));
                 result += i;
-            } else {
+            } else if (isOdd(source.length(), 2) || isOdd(source.length(), 3)) {
                 processSubStrings(iString, i);
             }
         }
-    }
-    private static boolean allCharactersSame(String source) {
-        return source.codePoints().distinct().count() == 1;
     }
 
     private static void processSubStrings(final String source, final long sourceLong) {
