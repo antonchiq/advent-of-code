@@ -16,7 +16,7 @@ public class Day1PartOne {
 
     private static final String TEST_FILE_PATH = "y2025/day1/test.txt";
 
-    private static final String PASSWORD_FILE_PATH = "y2025/day1/password.txt";
+    private static final String INPUT_FILE_PATH = "y2025/day1/input.txt";
 
     private static final String RIGHT_PREFIX = "R";
 
@@ -32,12 +32,12 @@ public class Day1PartOne {
 
     static void main(String[] args) {
         val classLoader = Day1PartOne.class.getClassLoader();
-        //processPassword(classLoader.getResourceAsStream(TEST_FILE_PATH));
-        processPassword(classLoader.getResourceAsStream(PASSWORD_FILE_PATH));
+        //process(classLoader.getResourceAsStream(TEST_FILE_PATH));
+        process(classLoader.getResourceAsStream(INPUT_FILE_PATH));
         logger.info("Password: %s".formatted(password));
     }
 
-    private static void processPassword(final InputStream source) {
+    private static void process(final InputStream source) {
         try (val br = new BufferedReader(new InputStreamReader(source))) {
             String line;
             while (isNotBlank(line = br.readLine())) {

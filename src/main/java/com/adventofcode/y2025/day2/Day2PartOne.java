@@ -17,7 +17,7 @@ public class Day2PartOne {
 
     private static final String TEST_FILE_PATH = "y2025/day2/test.txt";
 
-    private static final String ID_LIST_FILE_PATH = "y2025/day2/id_list.txt";
+    private static final String INPUT_FILE_PATH = "y2025/day2/input.txt";
 
     private static long result = 0;
 

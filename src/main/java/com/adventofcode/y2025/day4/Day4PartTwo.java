@@ -1,6 +1,6 @@
 package com.adventofcode.y2025.day4;
 
-import com.adventofcode.y2025.day2.Day2PartOne;
+import com.google.common.base.Stopwatch;
 import lombok.val;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,9 +13,9 @@ import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class Day4PartOne {
+public class Day4PartTwo {
 
-    private static final Log logger = LogFactory.getLog(Day4PartOne.class);
+    private static final Log logger = LogFactory.getLog(Day4PartTwo.class);
 
     private static final String TEST_FILE_PATH = "y2025/day4/test.txt";
 
@@ -23,10 +23,14 @@ public class Day4PartOne {
 
     private static int result = 0;
 
+    private static boolean continueScrollProcessing = false;
+
     static void main() {
-        val classLoader = Day2PartOne.class.getClassLoader();
+        val classLoader = Day4PartTwo.class.getClassLoader();
+        val timer = Stopwatch.createStarted();
         //process(classLoader.getResourceAsStream(TEST_FILE_PATH));
         process(classLoader.getResourceAsStream(INPUT_FILE_PATH));
+        logger.info("Method took: " + timer.stop());
         logger.info("Result: %s".formatted(result));
     }
 
@@ -45,7 +49,10 @@ public class Day4PartOne {
                 }
                 i++;
             }
-            processNet(net);
+            do {
+                continueScrollProcessing = false;
+                processNet(net);
+            } while (continueScrollProcessing);
         } catch (final Exception ex) {
             logger.error(ex.getMessage(), ex);
         }
@@ -65,8 +72,10 @@ public class Day4PartOne {
                 if (i < source.length - 1) {
                     counter.addAll(processRow(source, i + 1, j, false));
                 }
-                if (counter.stream().filter(Day4PartOne::hasScroll).count() < 4) {
+                if (counter.stream().filter(Day4PartTwo::hasScroll).count() < 4) {
+                    source[i][j] = "X";
                     result++;
+                    continueScrollProcessing = true;
                 }
             }
         }

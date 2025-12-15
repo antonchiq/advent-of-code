@@ -18,7 +18,7 @@ public class Day3PartOne {
 
     private static final String TEST_FILE_PATH = "y2025/day3/test.txt";
 
-    private static final String JOLTS_FILE_PATH = "y2025/day3/jolts.txt";
+    private static final String INPUT_FILE_PATH = "y2025/day3/input.txt";
 
     private static final int MAX_JOLTS = 9;
 

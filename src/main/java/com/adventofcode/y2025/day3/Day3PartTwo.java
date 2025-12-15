@@ -19,7 +19,7 @@ public class Day3PartTwo {
 
     private static final String TEST_FILE_PATH = "y2025/day3/test.txt";
 
-    private static final String JOLTS_FILE_PATH = "y2025/day3/jolts.txt";
+    private static final String INPUT_FILE_PATH = "y2025/day3/input.txt";
 
     private static final int MAX_JOLTS = 9;
 
@@ -28,7 +28,7 @@ public class Day3PartTwo {
     static void main() {
         val classLoader = Day3PartTwo.class.getClassLoader();
         //processPartTwo(classLoader.getResourceAsStream(TEST_FILE_PATH));
-        processPartTwo(classLoader.getResourceAsStream(JOLTS_FILE_PATH));
+        processPartTwo(classLoader.getResourceAsStream(INPUT_FILE_PATH));
         logger.info("Result: %s".formatted(result));
     }
 

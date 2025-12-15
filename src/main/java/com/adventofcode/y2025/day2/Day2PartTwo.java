@@ -18,14 +18,14 @@ public class Day2PartTwo {
 
     private static final String TEST_FILE_PATH = "y2025/day2/test.txt";
 
-    private static final String ID_LIST_FILE_PATH = "y2025/day2/id_list.txt";
+    private static final String INPUT_FILE_PATH = "y2025/day2/input.txt";
 
     private static long result = 0;
 
     static void main() {
         val classLoader = Day2PartTwo.class.getClassLoader();
         //processPartTwo(classLoader.getResourceAsStream(TEST_FILE_PATH));
-        processPartTwo(classLoader.getResourceAsStream(ID_LIST_FILE_PATH));
+        processPartTwo(classLoader.getResourceAsStream(INPUT_FILE_PATH));
         logger.info("Result: %s".formatted(result));
     }
 
