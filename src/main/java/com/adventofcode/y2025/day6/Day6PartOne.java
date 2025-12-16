@@ -52,9 +52,6 @@ public class Day6PartOne {
                     );
                 }
             }
-            System.out.println("List of lists size: %d".formatted(list.size()));
-            list.forEach(entity -> System.out.println("Each line size: %d".formatted(entity.size())));
-            System.out.println("Operation list size: %d".formatted(operationList.size()));
             val resultList = new ArrayList<Long>();
             for (var i = 0; i < operationList.size(); i++) {
                 resultList.add(compute(operationList.get(i), list, i));

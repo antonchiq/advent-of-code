@@ -1,5 +1,6 @@
 package com.adventofcode.y2025;
 
+import com.google.common.base.Stopwatch;
 import lombok.val;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,8 +21,10 @@ public class DayExample {
 
     static void main() {
         val classLoader = DayExample.class.getClassLoader();
+        val timer = Stopwatch.createStarted();
         process(classLoader.getResourceAsStream(TEST_FILE_PATH));
         //process(classLoader.getResourceAsStream(INPUT_FILE_PATH));
+        logger.info("Method took: " + timer.stop());
     }
 
     private static void process(final InputStream source) {
