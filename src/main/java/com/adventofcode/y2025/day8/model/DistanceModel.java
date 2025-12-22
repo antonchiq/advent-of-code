@@ -14,4 +14,8 @@ public final class DistanceModel {
     private final String name2;
     
     private final double distance;
+    
+    private final long x1;
+    
+    private final long x2;
 }

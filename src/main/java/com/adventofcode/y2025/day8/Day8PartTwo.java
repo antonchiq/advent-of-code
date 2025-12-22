@@ -16,18 +16,18 @@ import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class Day8PartOne {
+public class Day8PartTwo {
 
-    private static final Log logger = LogFactory.getLog(Day8PartOne.class);
+    private static final Log logger = LogFactory.getLog(Day8PartTwo.class);
 
     private static final String TEST_FILE_PATH = "y2025/day8/test.txt";
 
     private static final String INPUT_FILE_PATH = "y2025/day8/input.txt";
 
-    private static int result = 1;
+    private static long result = 0;
 
     static void main() {
-        val classLoader = Day8PartOne.class.getClassLoader();
+        val classLoader = Day8PartTwo.class.getClassLoader();
         val timer = Stopwatch.createStarted();
         //process(classLoader.getResourceAsStream(TEST_FILE_PATH));
         process(classLoader.getResourceAsStream(INPUT_FILE_PATH));
@@ -58,7 +58,7 @@ public class Day8PartOne {
             }
             distances.sort(Comparator.comparingDouble(DistanceModel::getDistance));
             val circuits = initCircuits(dots);
-            for (var i = 0; i < 1000; i++) {
+            for (var i = 0; i < distances.size(); i++) {
                 val distance = distances.get(i);
                 System.out.println(distance.toString());
                 if (distanceAlreadyInCircle(distance, circuits)) {
@@ -71,13 +71,12 @@ public class Day8PartOne {
                     continue;
                 }
                 addDistance(circuits, distance);
-            }
-            circuits.sort(Comparator.comparingInt(CircuitModel::getBoxesCount).reversed());
-            val j = Math.min(circuits.size(), 3);
-            for (var i = 0; i < j; i++) {
-                val boxesCount = circuits.get(i).getBoxesCount();
-                System.out.println("%d circuit size: %d".formatted(i + 1, boxesCount));
-                result *= boxesCount;
+                if (circuits.stream().anyMatch(entity -> entity.getBoxesCount() == dots.size())) {
+                    System.out.println("All boxes were connected!");
+                    System.out.println("Last distance: %s".formatted(distance.toString()));
+                    result = distance.getX1() * distance.getX2();
+                    break;
+                }
             }
         } catch (final Exception ex) {
             logger.error(ex.getMessage(), ex);
@@ -93,6 +92,8 @@ public class Day8PartOne {
                 .setName1(dot.getName())
                 .setName2(destination.getName())
                 .setDistance(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)))
+                .setX1(dot.getX())
+                .setX2(destination.getX())
                 .build();
     }
     
